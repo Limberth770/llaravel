@@ -24,6 +24,9 @@ Vue.use(Vuex);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+//GENERICOS
+Vue.component('Alert', require('./components/genericos/AlertComponent.vue').default);
+
 //ALUMNO COMPONENT
 Vue.component('alumno-component', require('./views/AlumnoComponent.vue').default);
 Vue.component('alumno-form-component', require('./components/alumno/FormComponent.vue').default);
@@ -55,7 +58,9 @@ const store = new Vuex.Store({
             estado_alumno:'',
             key_alumno:''
         },
-        currentVista:{vista:'insert',title:'Formulario de nuevo registro'}
+        currentVista:{vista:'insert',title:'Formulario de nuevo registro'},
+        alert:{show:false,type:'success',message:'Hello world from store'}
+
 	},
 	getters:{
 		allAlumnos(state){
@@ -64,65 +69,66 @@ const store = new Vuex.Store({
 	},
 	actions:{
 		getAllAlumnos(context){
-			axios.get('/alumnos')
+			axios.get('/admin/alumnos')
                 .then((response)=>{
-                	console.log("response ",response);
-                	context.commit('setAllAlumnos',response.data);
+                	//console.log("response ",response);
+                	context.commit('setAllAlumnos',response.data);                	
                 })
                 .catch(error => {
-		        	console.log(error)
-		        	//this.errored = true
+		        	//console.log(error)
+		        	this.state.alert = {show:true,type:'danger',message:'Error, '+error};
 		        })
 		      	.finally(() => {
-		      		console.log("finally");
+		      		//console.log("finally");
 		      	});
             
 		},
 		sendData(context,payload){
-			axios.post('/alumnos', this.state.currentAlumno)
+			axios.post('/admin/alumnos', this.state.currentAlumno)
 	            .then((res) => {	                
 	                context.dispatch('getAllAlumnos'); // llamada a otro action
 	                context.commit('clearForm');//llamada a mutation
+	                this.state.alert = {show:true,type:'success',message:'Datos registrados correctamente'};
 	            })
 	            .catch(error => {
-		        	console.log(error)
-		        	//this.errored = true
+		        	//console.log(error)
+		        	this.state.alert = {show:true,type:'danger',message:'Error, '+error};
 		        })
 		      	.finally(() => {
-		      		console.log("finally");
+		      		//console.log("finally");
 		      	});
 		},
 		updateData(context,payload){
-			axios.put('/alumnos/'+this.state.currentAlumno.id,this.state.currentAlumno)
+			axios.put('/admin/alumnos/'+this.state.currentAlumno.id,this.state.currentAlumno)
 	            .then((res) => {
 	                context.dispatch('getAllAlumnos');
 	                context.commit('clearForm');
 	                this.state.currentVista={vista:'insert',title:'Formulario de nuevo registro'};
-
+	                this.state.alert = {show:true,type:'success',message:'Datos actualizados correctamente'};
 	            })
 	            .catch(error => {
-		        	console.log(error)
-		        	//this.errored = true
+		        	//console.log(error)
+		        	this.state.alert = {show:true,type:'danger',message:'Error, '+error};
 		        })
 		      	.finally(() => {
-		      		console.log("finally");
+		      		//console.log("finally");
 		      	});
 		},
 		deleteData(context,payload){
 			console.log("payload = ",payload);
-			axios.delete('/alumnos/'+payload)
+			axios.delete('/admin/alumnos/'+payload)
 	            .then((res) => {
 	                context.dispatch('getAllAlumnos');
 	                context.commit('clearForm');
 	                this.state.currentVista={vista:'insert',title:'Formulario de nuevo registro'};
-
+	                this.state.alert = {show:true,type:'success',message:'Registro eliminado correctamente'};
 	            })
 	            .catch(error => {
-		        	console.log(error)
-		        	//this.errored = true
+		        	//console.log(error)
+		        	this.state.alert = {show:true,type:'danger',message:'Error, '+error};
 		        })
 		      	.finally(() => {
-		      		console.log("finally");
+		      		//console.log("finally");
 		      	});
 		}
 	},
@@ -189,6 +195,9 @@ const store = new Vuex.Store({
 	            estado_alumno:'',
 	            key_alumno:''
 	        };
+		},
+		closeAlert(state){
+			state.alert.show = false;
 		}
 	}
 });

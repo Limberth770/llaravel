@@ -41,7 +41,7 @@
           <nav class="navbar navbar-expand-lg bg-info">
             <div class="container">
               <div class="navbar-translate">
-                <a class="navbar-brand" href="{{route('home')}}">ADMINISTRADOR</a>
+                <a class="navbar-brand" href="{{route('admin.home')}}">ADMINISTRADOR</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="sr-only">Toggle navigation</span>
                   <span class="navbar-toggler-icon"></span>
@@ -61,12 +61,12 @@
                           <a class="nav-link" href="{{ route('register') }}">{{ __('REGISTRARSE') }}</a>
                       </li>
                     @endif
-                  @else                    
+                  @else
                     <li class="nav-item">
-                          <a class="nav-link" href="{{ route('alumnos.create') }}">{{ __('ALUMNOS') }}</a>
+                          <a class="nav-link" href="{{ route('admin.alumnos.create') }}">{{ __('ALUMNOS') }}</a>
                     </li>
                     <li class="nav-item">
-                          <a class="nav-link" href="{{ route('docentes.create') }}">{{ __('DOCENTES') }}</a>
+                          <a class="nav-link" href="{{ route('admin.docentes.create') }}">{{ __('DOCENTES') }}</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

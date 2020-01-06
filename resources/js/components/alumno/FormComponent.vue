@@ -105,9 +105,9 @@
             </div>
         </div>
         <div class="footer text-center">
-          <button v-if="currentVista.vista=='edit'" class="btn btn-danger" @click="cancelEdit">Cancelar</button>
-          <button v-if="currentVista.vista=='edit'" class="btn btn-info" @click="sendDataToEdit">Actualizar</button>
-          <button v-if="currentVista.vista=='insert'" class="btn btn-info" @click="sendData">Guardar</button>
+          <button v-if="currentVista.vista=='edit'" class="btn btn-danger" @click="cancelEdit"><i class="material-icons">clear</i></button>
+          <button v-if="currentVista.vista=='edit'" class="btn btn-info" @click="sendDataToEdit"><i class="material-icons">save</i></button>
+          <button v-if="currentVista.vista=='insert'" class="btn btn-info" @click="sendData"><i class="material-icons">save</i></button>
         </div>
       
     </div>

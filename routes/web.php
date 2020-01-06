@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('/alumnos','AlumnoController');
-Route::resource('/docentes','DocenteController');
+Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
+	Route::get('/home', 'HomeController@index')->name('home');
+	Route::resource('/alumnos','AlumnoController');
+	Route::resource('/docentes','DocenteController');
+});
+	

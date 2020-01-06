@@ -5,6 +5,7 @@
         </div>
         <div class="card-body">
             <!--<button class="btn btn-info">Nuevo</button>-->
+            <Alert/>
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
@@ -26,8 +27,8 @@
                   <td>{{item.apellido_mat_alumno}}</td>
                   <td>{{item.numero_telefonico_alumno}}</td>
                   <td>
-                    <button class="btn btn-danger" @click="deleteData(item)">Delete</button>
-                    <button class="btn btn-warning" @click="fillForm(item)">Editar</button>
+                    <button class="btn btn-danger" @click="deleteData(item)"><i class="material-icons">clear</i></button>
+                    <button class="btn btn-warning" @click="fillForm(item)"><i class="material-icons">edit</i></button>
                   </td>
                 </tr>                
               </tbody>
@@ -47,7 +48,7 @@
             this.getAll();
         },
         computed:{
-            ...mapState(['alumnos','currentAlumno','currentVista']),
+            ...mapState(['alumnos','currentAlumno','currentVista','alert']),
             allAlumnos(){//otra forma de leer los datos del state
                 return this.$store.getters.allAlumnos;
             }
